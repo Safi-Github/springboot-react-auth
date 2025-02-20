@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./Login";
+import Dashboard from "./Dashboard";
+import Users from "./Users";
+import EditUser from "./EditUser";
+import "primereact/resources/themes/lara-light-blue/theme.css"; // PrimeReact theme
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 
-function App() {
+const App = () => {
+  const [authToken, setAuthToken] = useState(localStorage.getItem("token"));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      {authToken ? (
+        <Route path="/" element={<Dashboard setAuthToken={setAuthToken} />} />
+      ) : (
+        <Route path="/" element={<Login setAuthToken={setAuthToken} />} />
+      )}
+      <Route path="/users" element={<Users setAuthToken={setAuthToken} />} />
+
+      <Route
+        path="/edit-user/:id"
+        element={<EditUser setAuthToken={setAuthToken} />}
+      />
+      <Route
+        path="/add-user"
+        element={<EditUser setAuthToken={setAuthToken} />}
+      />
+    </Routes>
   );
-}
+};
 
 export default App;
