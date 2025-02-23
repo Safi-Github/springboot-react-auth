@@ -24,9 +24,10 @@ const Users = ({ setAuthToken }) => {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:8080/protected", {
+      const response = await axios.get("http://localhost:8080/api/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log("users data :", response.data);
       setUsers(response.data);
     } catch (err) {
       if (err.response) {
