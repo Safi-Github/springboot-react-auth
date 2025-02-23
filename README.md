@@ -1,18 +1,20 @@
-🚀 Full-Stack Application with Spring Security & JWT
-This full-stack application integrates Spring Security and JWT for authentication, ensuring secure and role-based access control. The frontend, built with React, features protected routes for authorized users.
+🚀 Full-Stack Application
+📌 Overview
+This Full-Stack Application is built with Spring Boot & React and secured using Spring Security & JWT.
+It provides role-based access control, a RESTful API, and a modern frontend with protected routes.
 
 ✨ Features
-✅ Secure Authentication – JWT-based authentication with Spring Security
-✅ Role-Based Access Control – Granular permissions for different user roles
-✅ RESTful API – Built with Spring Boot for seamless backend communication
-✅ Protected Routes – React UI with private routing for authenticated users
-
+🔐 User Authentication & Authorization using Spring Security & JWT
+🔄 RESTful API for smooth interaction between frontend and backend
+🛂 Role-Based Access Control (RBAC) for users and admins
+📊 Spring JPA & Hibernate for database operations
+🛡️ Secure API endpoints & protected frontend routes
 🛠️ Technologies
 🔹 Backend
-Spring Boot – Java-based framework for building microservices
-Spring Security & JWT – Secure authentication and authorization
-PostgreSQL – Relational database for data storage
+Spring Boot – Framework for building scalable applications
+Spring Security & JWT – Secure authentication & authorization
+PostgreSQL – Database for persistent storage
 🔹 Frontend
-React – Modern UI library for building interactive user interfaces
-React Router – Client-side routing for a seamless experience
-Axios – HTTP client for API requests
+React – Modern UI library for an interactive experience
+React Router – Handles private and public routes
+Axios – HTTP client for API communication
