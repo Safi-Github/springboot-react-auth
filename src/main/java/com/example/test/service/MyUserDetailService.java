@@ -3,12 +3,14 @@ package com.example.test.service;
 import com.example.test.entity.MyUser;
 import com.example.test.repository.MyUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,17 +32,17 @@ public class MyUserDetailService implements UserDetailsService {
             return User.builder()
                     .username(userObj.getUsername())
                     .password(userObj.getPassword())
-                    .roles(getRoles(userObj))
+                    .authorities(Collections.singletonList(new SimpleGrantedAuthority(userObj.getRole().name())))
                     .build();
         } else {
             throw new UsernameNotFoundException(username);
         }
     }
 
-    private String[] getRoles(MyUser user) {
+    private String getRoles(MyUser user) {
         if (user.getRole() == null) {
-            return new String[]{"USER"};
+            // return new String[]{"USER"};
         }
-        return user.getRole().split(",");
+        return user.getRole().name();
     }
 }

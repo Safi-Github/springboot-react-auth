@@ -3,6 +3,8 @@ package com.example.test.controller;
 import org.apache.tomcat.util.http.HeaderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +14,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.test.repository.MyUserRepository;
 import com.example.test.entity.MyUser;
+import com.example.test.enums.LiteracyLevel;
+import com.example.test.enums.Role;
 import com.example.test.jwt.JwtUtilityClass;
 import com.example.test.service.MyUserDetailService;
+
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +38,8 @@ public class UserController {
   }
 
   @GetMapping("/users")
+//   @Secured("ROLE_ADMIN")
+//   @PreAuthorize("hasAuthority('ADMIN')")
   public List<MyUser> getAllUsers() {
       return myUserRepository.findAll();
   }
@@ -83,5 +93,23 @@ public class UserController {
             .noContent()
             .build();
   }
+
+    @GetMapping("/enums/literacy-levels")
+    public ResponseEntity<List<Map<String, String>>> getLiteracyLevels() {
+        List<Map<String, String>> literacyLevels = Arrays.stream(LiteracyLevel.values())
+            .map(level -> Map.of("name", level.getDisplayName(), "value", level.name()))
+            .collect(Collectors.toList());
+
+        return ResponseEntity.ok(literacyLevels);
+    }
+
+    @GetMapping("/enums/roles")
+    public ResponseEntity<List<Map<String, String>>> getRoles() {
+        List<Map<String, String>> roles = Arrays.stream(Role.values())
+            .map(role -> Map.of("name", role.getDisplayName(), "value", role.name()))
+            .collect(Collectors.toList());
+    
+        return ResponseEntity.ok(roles);
+    }
 
 }
